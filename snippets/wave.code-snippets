@@ -1,0 +1,25 @@
+{
+  "Main Function": {
+    "prefix": "main",
+    "body": [
+      "fun main() {",
+      "    println(\"Hello, Wave!\");",
+      "}"
+    ],
+    "description": "Wave main function"
+  },
+  "Function Template": {
+    "prefix": "fun",
+    "body": [
+      "fun ${1:name}(${2:args}) -> ${3:type} {",
+      "    $0",
+      "}"
+    ],
+    "description": "Wave function template"
+  },
+  "Import Statement": {
+    "prefix": "imp",
+    "body": ["import(\"${1:module}\");"],
+    "description": "Wave import statement"
+  }
+}

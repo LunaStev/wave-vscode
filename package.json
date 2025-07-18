@@ -1,0 +1,51 @@
+{
+  "name": "wave",
+  "displayName": "Wave",
+  "description": "Wave Language Support",
+  "version": "0.2.0",
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "publisher": "wave-language",
+  "license": "MPL-2.0",
+  "categories": [
+    "Programming Languages"
+  ],
+  "icon": "images/icon.png",
+  "activationEvents": [
+    "onLanguage:wave"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "wave",
+        "aliases": [
+          "Wave",
+          "wave"
+        ],
+        "extensions": [
+          ".wave"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./images/icon.png",
+          "dark": "./images/icon.png"
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "wave.runCurrentFile",
+        "title": "Run Wave Current File"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "wave",
+        "scopeName": "source.wave",
+        "path": "./syntaxes/wave.tmLanguage.json"
+      }
+    ]
+  }
+}
