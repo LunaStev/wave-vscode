@@ -1,15 +1,14 @@
-const vscode = require('vscode');
-const os = require('os');
-const path = require('path');
+import * as vscode from 'vscode';
+import * as os from 'os';
+import * as path from 'path';
 
-function windowsPathToWsl(winPath) {
-    // 예: D:\Programming\Wave\test.wave → /mnt/d/Programming/Wave/test.wave
-    const driveLetter = winPath[0].toLowerCase(); // d
-    const withoutDrive = winPath.substring(2).replace(/\\/g, '/'); // /Programming/Wave/test.wave
+function windowsPathToWsl(winPath: string): string {
+    const driveLetter = winPath[0].toLowerCase();
+    const withoutDrive = winPath.substring(2).replace(/\\/g, '/');
     return `/mnt/${driveLetter}${withoutDrive}`;
 }
 
-function activate(context) {
+export function activate(context: vscode.ExtensionContext) {
     let runWave = vscode.commands.registerCommand('wave.runCurrentFile', () => {
         const editor = vscode.window.activeTextEditor;
         if (!editor) {
@@ -22,17 +21,15 @@ function activate(context) {
         terminal.show();
 
         if (os.platform() === 'win32') {
-            // Windows → WSL 경로 변환 후 실행
             const wslPath = windowsPathToWsl(filePath);
             terminal.sendText(`wsl wavec run "${wslPath}"`);
         } else {
-            // Linux & macOS는 그대로 실행
             terminal.sendText(`wavec run "${filePath}"`);
         }
     });
 
-    const codeLensProvider = {
-        provideCodeLenses(document) {
+    const codeLensProvider: vscode.CodeLensProvider = {
+        provideCodeLenses(document: vscode.TextDocument) {
             if (document.languageId === 'wave') {
                 const topOfFile = new vscode.Range(0, 0, 0, 0);
                 return [
@@ -52,9 +49,4 @@ function activate(context) {
     );
 }
 
-function deactivate() {}
-
-module.exports = {
-    activate,
-    deactivate
-};
+export function deactivate() {}
